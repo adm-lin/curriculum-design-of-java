@@ -81,7 +81,7 @@ public class Demo extends JFrame implements ActionListener {
 	private JMenuItem menuItemEmpty = new JMenuItem("清空");
 	
 	/** The menu item search. */
-	private JMenuItem menuItemSearch = new JMenuItem("查找");
+	private JMenuItem menuItemSearch = new JMenuItem("查找/替换");
 
 	/** The menu function. */
 	private JMenu menuFunction = new JMenu("功能设置");
@@ -255,7 +255,7 @@ public class Demo extends JFrame implements ActionListener {
 		popupMenu.add(menuItemPaste2);
 		menuItemEmpty2 = new JMenuItem("清空");
 		popupMenu.add(menuItemEmpty2);
-		menuItemSearch2=new JMenuItem("查找");
+		menuItemSearch2=new JMenuItem("查找/替换");
 		popupMenu.add(menuItemSearch2);
 
 		popupMenu.setBorderPainted(true);
