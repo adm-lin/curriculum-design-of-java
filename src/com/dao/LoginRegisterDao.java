@@ -43,6 +43,8 @@ public class LoginRegisterDao {
 	/** The log 4 j. */
 	Logger log4j=Logger.getLogger(StudentDao.class);
 	
+	ResultSet rs=null;
+	PreparedStatement pstm1=null;
 	/**
 	 * Gets the connection.
 	 *
@@ -73,7 +75,7 @@ public class LoginRegisterDao {
 		String sql="select * from user where name='"+name+"'";
 		try {
 			pstm=conn.prepareStatement(sql);
-			ResultSet rs=pstm.executeQuery();
+			rs=pstm.executeQuery();
 			if(rs.next()) {
 				if(rs.getString(6).equals(password)) {
 					log4j.info("登录成功");
@@ -112,12 +114,14 @@ public class LoginRegisterDao {
 			pstm.setString(1, name);
 			pstm.setString(2, id);
 			pstm.setString(3, gradeName);
-			ResultSet rs=pstm.executeQuery();
-			log4j.info("查询成功");
-			PreparedStatement pstm1;
-			String password=null;
+			rs=pstm.executeQuery();
+			log4j.info(name+" "+id+" "+gradeName);
 			if(rs.next()) {
-				if(rs.getString(6).equals("")) {
+				log4j.info("进入密码申请");
+				String password=null;
+				password=rs.getString(6);
+				log4j.info(password);
+				if(password.equals("")) {
 					log4j.info("注册");
 					String sql1="update user set password='123456' where name='"+name+"'";
 					pstm1=conn.prepareStatement(sql1);
@@ -130,7 +134,6 @@ public class LoginRegisterDao {
 					JLabel lbl=new JLabel("用户已经存在");
 					lbl.setFont(new Font("宋体",Font.PLAIN,20));
 					JOptionPane.showMessageDialog(null, lbl);	
-					
 				}
 			}else {
 				JLabel lbl=new JLabel("输入有误");
@@ -138,6 +141,16 @@ public class LoginRegisterDao {
 				JOptionPane.showMessageDialog(null, lbl);
 			}
 		}catch(Exception e){
+			
+		}finally {
+			try {
+				rs.close();
+				pstm.close();
+				pstm1.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			
 		}
 		return 0;

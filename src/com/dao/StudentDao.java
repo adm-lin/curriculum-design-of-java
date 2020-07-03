@@ -63,14 +63,14 @@ public class StudentDao {
 	public void insert(Student student) {
 		try {
 			conn = getConnection();
-			String sql = "insert into user (name,id,major,grade,school) values(?,?,?,?,?)";
+			String sql = "insert into user (name,id,major,grade,school,password) values(?,?,?,?,?,?)";
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, student.getName());
 			pstm.setString(2, student.getId());
 			pstm.setString(3, student.getMajor());
 			pstm.setString(4, student.getGrade());
 			pstm.setString(5, student.getSchool());
-			//pstm.setString(6, student.getPassword());
+			pstm.setString(6, "");
 			pstm.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
